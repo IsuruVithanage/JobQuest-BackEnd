@@ -98,3 +98,40 @@ exports.getAllJobsByCompany = async (req, res) => {
         res.status(500).send('Error fetching jobs');
     }
 };
+
+exports.deleteJob = async (req, res) => {
+    try {
+        const jobId = req.params.jobId;
+
+        const job = await Job.findById(jobId);
+        if (!job) {
+            return res.status(404).json({ message: "Job not found" });
+        }
+
+        await Job.findByIdAndDelete(jobId);
+
+        res.json({ message: "Job deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error deleting job" });
+    }
+};
+
+exports.updateJob = async (req, res) => {
+    try {
+        const jobId = req.params.jobId;
+        const updateFields = req.body;
+
+        const job = await Job.findById(jobId);
+        if (!job) {
+            return res.status(404).json({ message: "Job not found" });
+        }
+
+        const updatedJob = await Job.findByIdAndUpdate(jobId, updateFields, { new: true });
+
+        res.json(updatedJob);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error updating job" });
+    }
+};
