@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 require('dotenv').config();
@@ -28,6 +29,7 @@ mongoose
 
 // Routes
 app.use('/api/admins', adminRoutes);
+app.use('/api/user', userRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
