@@ -17,3 +17,23 @@ exports.validateAdminLogin = (data) => {
     });
     return schema.validate(data);
 };
+
+exports.validateJob = (data) => {
+    const schema = Joi.object({
+        title: Joi.string().min(3).max(255).required(),
+        description: Joi.string().min(10).required(),
+        location: Joi.string().min(3).max(255).required(),
+        industry: Joi.string().min(3).max(255).required(),
+    });
+    return schema.validate(data);
+};
+
+exports.validateCompanyRegistration = (data) => {
+    const schema = Joi.object({
+        companyName: Joi.string().min(3).max(255).required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).required(), // Adjust minimum password length as needed
+        companyType: Joi.string().min(3).max(255).required(),
+    });
+    return schema.validate(data);
+};
