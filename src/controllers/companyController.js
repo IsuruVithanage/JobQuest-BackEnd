@@ -19,6 +19,9 @@ exports.registerCompany = async (req, res) => {
             companyName: req.body.companyName,
             email: req.body.email,
             password: hashedPassword,
+            description: req.body.description,
+            location: req.body.location,
+            industry: req.body.industry,
             companyType: req.body.companyType
         });
 
@@ -27,10 +30,12 @@ exports.registerCompany = async (req, res) => {
         const token = generateToken(company);
 
         res.header('x-auth-token', token).send({
-            _id: company._id,
-            companyName: company.companyName,
-            email: company.email,
-            companyType: company.companyType
+            companyName: req.body.companyName,
+            email: req.body.email,
+            description: req.body.description,
+            location: req.body.location,
+            industry: req.body.industry,
+            companyType: req.body.companyType
         });
     } catch (error) {
         console.error(error);
