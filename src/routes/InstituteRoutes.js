@@ -9,6 +9,6 @@ router.post('/login', instituteController.instituteLogin);
 router.post('/addCourse', instituteController.addCourse);
 router.get('/getAllCourses/:instituteId', instituteController.getAllCoursesByInstitute);
 router.delete('/deleteCourse/:courseId', instituteController.deleteCourse);
-router.put('/updateCourse/:jobId', instituteController.updateCourse);
+router.put('/updateCourse/:courseId', instituteController.updateCourse);
 
 module.exports = router;
