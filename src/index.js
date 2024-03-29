@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
 const companyRoutes = require('./routes/companyRoutes');
+const instituteRoutes = require('./routes/InstituteRoutes');
 
 const app = express();
 require('dotenv').config();
@@ -32,6 +33,7 @@ mongoose
 app.use('/api/admins', adminRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/company', companyRoutes);
+app.use('/api/institute', instituteRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
