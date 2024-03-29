@@ -2,6 +2,8 @@ const auth = require('../middleware/auth');
 const { hashPassword, comparePassword, generateToken } = require('../middleware/auth');
 const { validateAdminRegistration, validateAdminLogin } = require('../middleware/validation');
 const Admin = require('../models/adminModel');
+const Company = require('../models/companyModel');
+const Institute = require("../models/instituteModel");
 
 exports.registerAdmin = async (req, res) => {
     try {
@@ -59,5 +61,73 @@ exports.adminLogin = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Error logging in.');
+    }
+};
+
+exports.deleteCompany = async (req, res) => {
+    try {
+        const companyId = req.params.companyId;
+        await Company.findByIdAndDelete(companyId);
+        res.status(200).send("Company deleted successfully.");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error deleting company.");
+    }
+};
+
+exports.deleteInstitute = async (req, res) => {
+    try {
+        const instituteId = req.params.instituteId;
+        await Institute.findByIdAndDelete(instituteId);
+        res.status(200).send("Institute deleted successfully.");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error deleting institute.");
+    }
+};
+
+
+exports.updateCompany = async (req, res) => {
+    try {
+        const companyId = req.params.companyId;
+        const updatedCompany = await Company.findByIdAndUpdate(companyId, req.body, { new: true });
+        res.status(200).send(updatedCompany);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error updating company.");
+    }
+};
+
+
+exports.updateInstitute = async (req, res) => {
+    try {
+        const instituteId = req.params.instituteId;
+        const updatedInstitute = await Institute.findByIdAndUpdate(instituteId, req.body, { new: true });
+        res.status(200).send(updatedInstitute);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error updating institute.");
+    }
+};
+
+
+exports.getAllCompanies = async (req, res) => {
+    try {
+        const companies = await Company.find();
+        res.status(200).send(companies);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error fetching companies.");
+    }
+};
+
+
+exports.getAllInstitutes = async (req, res) => {
+    try {
+        const institutes = await Institute.find();
+        res.status(200).send(institutes);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error fetching institutes.");
     }
 };
