@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const JobSchema = new Schema({
-    employer: {
+    company: {
         type: Schema.Types.ObjectId,
         ref: 'Company',
         required: true
@@ -23,7 +23,6 @@ const JobSchema = new Schema({
             ref: 'User'
         },
         cvURL: String,
-        clURL: String,
         applicationDate: {
             type: Date,
             default: Date.now
